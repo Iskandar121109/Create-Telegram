@@ -6,7 +6,7 @@ import { ShowBurgerMenu } from './ShowBurgerMenu'
 
 export const Telegram = () => {
     const [bgDark, setBgDark] = useState(false);
-    console.log(bgDark);
+    
     const [contacts, setContacts] = useState([
         {
             id: 1,
