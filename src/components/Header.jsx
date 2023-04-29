@@ -11,11 +11,17 @@ export const Header = ({ showContact, showSearchMesseges, setShowSeachMessage, b
   return (
     <div className={headerStyle.join(' ')}>
       {showContact && showContact.map(contact => (
-        <div key={contact.id} className='flex items-center gap-5 text-2xl ml-10 cursor-pointer '>
-          <img className='w-[55px] h-[55px] rounded-full' src={contact.img} alt={contact.firstName} />
-          <p>{contact.firstName} {contact.lastName}</p>
+        <div key={contact.id} className='flex gap-5 items-center text-2xl ml-10 cursor-pointer '>
+          <div className='flex items-center'>
+            <img className='w-[55px] h-[55px] rounded-full' src={contact.img} alt={contact.firstName} />
+          </div>
+          <div className='m-0 text-[14px]'>
+            <p className='text-3xl'>{contact.firstName} {contact.lastName}</p>
+            {contact.status ? <span className='bg-green-500 px-3 py-1 rounded text-white'>Online</span> : <span className='bg-orange-500 px-3 py-1 rounded text-white'>Offline</span>}
+          </div>
         </div>
       ))}
+
       <div className='flex items-center gap-3'>
         <span className={iconsHover}><AiOutlineSearch onClick={() => setShowSeachMessage(!showSearchMesseges)} className='z-10 text-3xl top-2 text-gray-400' /></span>
         <span className={iconsHover}><FaEllipsisV onClick={() => setShowElModal(!showElModal)} className='text-2xl' /></span>

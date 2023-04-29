@@ -1,10 +1,10 @@
 import './App.css';
-import { Telegram } from './components/Telegram';
+import { RoutesApp } from './components/RoutesApp';
 
 function App() {
   return (
     <div className="">
-      <Telegram />
+      <RoutesApp />
     </div>
   );
 }

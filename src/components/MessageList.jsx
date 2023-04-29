@@ -2,7 +2,7 @@ import React, { useEffect, useRef } from 'react'
 import { TiDeleteOutline } from "react-icons/ti";
 
 export const MessageList = ({ messages, bgDark, filteredMessages, showContact, deleteMessage, filterLastMess, messagesInstore, contact }) => {
-    const contactName = showContact.map(contact => (
+    const contactName = showContact && showContact.map(contact => (
         contact.firstName + ' ' + contact.lastName
     ))
     const messageList = useRef();
@@ -10,7 +10,7 @@ export const MessageList = ({ messages, bgDark, filteredMessages, showContact, d
         messageList.current.scrollIntoView({ behavior: "smooth" });
     }, [messages]);
 
-    const contactImg = showContact.map(contact => contact.img);
+    const contactImg = showContact && showContact.map(contact => contact.img);
 
     const mListStyle = ['h-[80vh] px-4 py-3 w-[100%] overflow-auto']
 
@@ -33,7 +33,7 @@ export const MessageList = ({ messages, bgDark, filteredMessages, showContact, d
                     <div key={message.id} className='w-[100%] flex justify-end items-end mb-2'>
                         <div className={darkModeStyle}>
                             <h1 className='font-bold text-blue-400 flex items-center justify-between gap-3'>{contactName}< TiDeleteOutline onClick={() => deleteMessage(message.id)} /></h1>
-                            <h1 >{message.text}</h1>
+                            <h1 >{message.emoji}{message.text}</h1>
                             <p className='text-sm text-end text-gray-400'>{message.date}</p>
                         </div>
                     </div>))}

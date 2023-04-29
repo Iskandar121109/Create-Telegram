@@ -1,12 +1,12 @@
 import React, { useState } from 'react'
 
 export const Contact = ({ bgDark,
-    setBgDark, contact, showHeaderContact, onContactClick, selectShoose, choosenContact }) => {
+     contact, showHeaderContact, onContactClick, selectShoose, choosenContact }) => {
     const [action, setAction] = useState(false);
     const hoverBgDark = bgDark ? 'hover:bg-slate-600' : 'hover:bg-slate-300'
     const choseBgDark = bgDark ? 'bg-slate-600' : 'bg-slate-300'
     const contactStyle = [
-        'flex items-center gap-5 text-2xl cursor-pointer rounded pl-2 py-2',
+        'flex items-center gap-5 text-2xl cursor-pointer rounded pl-2 py-2 relative',
         contact.id === (choosenContact && choosenContact.id) ? choseBgDark : '', hoverBgDark];
     return (
         <div onClick={() => {
@@ -20,6 +20,9 @@ export const Contact = ({ bgDark,
             <div>
                 <p>{contact.firstName} {contact.lastName}</p>
                 <p className='text-[17px]'>{contact.messege}</p>
+            </div>
+            <div className='text-[16px] bg-green-500 px-3 rounded-3xl text-white absolute right-2'>
+                {contact.countMessage}
             </div>
         </div>
     )

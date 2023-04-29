@@ -8,14 +8,13 @@ export const LoginPage = ({ loggedIn, setLoggedIn }) => {
         login: '',
         password: ''
     })
-    
+
     const onUserInput = (key) => (e) => {
         setUser(
             { ...user, [key]: e.target.value }
         )
     }
-    // localStorage.removeItem('user')
-    
+
     useEffect(() => {
         localStorage.setItem('user', JSON.stringify(userLogin))
     }, [userLogin])
@@ -30,7 +29,8 @@ export const LoginPage = ({ loggedIn, setLoggedIn }) => {
     const handleLogin = () => {
         const users = JSON.parse(localStorage.getItem('user'));
         const currentUser = users.find(user => user.login === "Iskandar" && user.password === "asd123");
-        if (currentUser) {
+
+        if (currentUser && currentUser.login === user.login && currentUser.password === user.password) {
             setLoggedIn(true);
         } else {
             setError('Неверный логин и пароль')
@@ -38,7 +38,6 @@ export const LoginPage = ({ loggedIn, setLoggedIn }) => {
                 user.password === '') {
                 setError('Поля не должно быть пустым')
             }
-
         }
     };
     return (

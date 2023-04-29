@@ -87,7 +87,7 @@ export const MessageBox = ({ contact, showContact, bgDark, contacts }) => {
 
   useEffect(() => {
     if (!contact) return;
-    setFilteredMessages(messages.filter((message) => message.senderId === 1 && message.receiverId === contact.id ));
+    setFilteredMessages(messages.filter((message) => message.senderId === 1 && message.receiverId === contact.id));
   }, [contactID])
 
   const [messagesLast, setMessagesLast] = useState([
@@ -129,7 +129,6 @@ export const MessageBox = ({ contact, showContact, bgDark, contacts }) => {
 
   const [showSearchMesseges, setShowSeachMessages] = useState(false);
 
-  // здесь данные сохроняться в localStor
   const [messagesInstore, setMessagesInStore] = useState(JSON.parse(localStorage.getItem("messeges")));
 
   const deleteMessage = (id) => {
@@ -139,6 +138,7 @@ export const MessageBox = ({ contact, showContact, bgDark, contacts }) => {
   useEffect(() => {
     localStorage.setItem('messeges', JSON.stringify(messagesInstore))
   }, [messagesInstore])
+
 
   return (
     <div className='flex w-[70%] h-[100vh]'>

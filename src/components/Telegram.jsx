@@ -6,12 +6,14 @@ import { ShowBurgerMenu } from './ShowBurgerMenu'
 
 export const Telegram = () => {
     const [bgDark, setBgDark] = useState(false);
-    
+
     const [contacts, setContacts] = useState([
         {
             id: 1,
             firstName: 'Leanne',
             lastName: 'Graham',
+            countMessage: 2,
+            status: true,
             img: '1.jpg',
             messege: "Hello Leanne how.."
         },
@@ -19,6 +21,8 @@ export const Telegram = () => {
             id: 2,
             firstName: 'Ervin ',
             lastName: 'Howell',
+            countMessage: 5,
+            status: false,
             img: '2.jpg',
             messege: "how do you do"
         },
@@ -26,6 +30,8 @@ export const Telegram = () => {
             id: 3,
             firstName: 'Clementine ',
             lastName: 'Bauch',
+            countMessage: 6,
+            status: true,
             img: '3.jpg',
             messege: "Чихели сози"
         },
@@ -33,6 +39,8 @@ export const Telegram = () => {
             id: 4,
             firstName: 'Patricia  ',
             lastName: 'Lebsack',
+            countMessage: 8,
+            status: false,
             img: '4.jpg',
             messege: "Как успехи"
         },
@@ -40,6 +48,8 @@ export const Telegram = () => {
             id: 5,
             firstName: 'Chelsey ',
             lastName: 'Dietrich',
+            countMessage: 1,
+            status: true,
             img: '5.jpg',
             messege: "Что нового ?..."
         },
@@ -47,6 +57,8 @@ export const Telegram = () => {
             id: 6,
             firstName: 'Mrs. Dennis  ',
             lastName: 'Schulist',
+            countMessage: 15,
+            status: false,
             img: '6.jpg',
             messege: "Чем занят"
         },
@@ -54,6 +66,8 @@ export const Telegram = () => {
             id: 7,
             firstName: 'Kurtis ',
             lastName: 'Weissnat',
+            countMessage: 22,
+            status: true,
             img: '7.jpg',
             messege: "Как погода сегодня"
         },
@@ -61,6 +75,8 @@ export const Telegram = () => {
             id: 8,
             firstName: 'Nicholas ',
             lastName: 'Runolfsdottir V',
+            countMessage: 4,
+            status: false,
             img: '8.jpg',
             messege: "Справился с домашкой?"
         },
@@ -68,6 +84,8 @@ export const Telegram = () => {
             id: 9,
             firstName: 'Clementine ',
             lastName: 'Bauch',
+            countMessage: 7,
+            status: false,
             img: '9.jpg',
             messege: "Какие планы на сегодня"
         },
@@ -75,6 +93,8 @@ export const Telegram = () => {
             id: 10,
             firstName: 'Glenna ',
             lastName: 'Reichert',
+            countMessage: 6,
+            status: true,
             img: '10.jpg',
             messege: "JS или TS ?"
         }
