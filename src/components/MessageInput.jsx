@@ -4,7 +4,6 @@ import { MdAttachFile } from "react-icons/md";
 import { BiMicrophone } from "react-icons/bi";
 import moment from 'moment';
 import EmojiPicker from 'emoji-picker-react';
-import data from 'emoji-picker-react';
 
 
 export const MessageInput = ({
@@ -16,7 +15,7 @@ export const MessageInput = ({
     id: crypto.randomUUID(),
     text: '',
     senderId: 1,
-    receiverId: 1
+    receiverId: 2
   });
 
   useEffect(() => {
@@ -51,7 +50,7 @@ export const MessageInput = ({
     <div className='h-[10vh]  flex items-center gap-3 px-3 relative bottom-2 w-[100%]'>
       <div className={inputMessageStyle.join(" ")} >
         <div className={!emojiVisible ? 'hidden' : 'block absolute top-[-450px]'}>
-          <EmojiPicker data={data} onEmojiClick={(e) => {
+          <EmojiPicker onEmojiClick={(e) => {
             setEmojiSelect(e.emoji)
             setEmojiVisible(!emojiVisible)
           }} />
@@ -60,7 +59,7 @@ export const MessageInput = ({
         <form className='w-[100%] flex' onSubmit={addNewMessage}>
           <input
             type="text"
-            placeholder='Сообщение'
+            placeholder='Сообщение '
             className='w-[100%] outline-none h-[100%] px-2 bg-transparent'
             onChange={handleChange}
             value={newMessage.text}

@@ -8,14 +8,14 @@ import { AiOutlineBug } from "react-icons/ai";
 import { TbLetterK } from "react-icons/tb";
 import { IoExitOutline } from "react-icons/io5";
 
-export const ShowBurgerMenu = ({ showMenuBurger, bgDark, setBgDark }) => {
+export const ShowBurgerMenu = ({ showMenuBurger, bgDark, setBgDark, setLoggedIn }) => {
     const darkModeStyle = bgDark ? 'bg-black/90 text-white' : 'bg-gray-100/100';
     const animateShowing = !showMenuBurger ? 'scale-0 transition-all' : 'scale-1 transition-all';
     const stylesForBurgerMenu = [animateShowing, 'absolute left-7 top-[70px]  w-[270px] px-3 py-3 text-xl items-start text-gray-500 flex flex-col gap-2'];
     const itemsHoverEffect = bgDark ? 'hover:bg-gray-600' : 'hover:bg-gray-300';
     const stylesItems = ['flex gap-3 items-center  w-[100%] rounded cursor-pointer', itemsHoverEffect];
     const exit = () => {
-        localStorage.removeItem("user")
+        setLoggedIn(false)
         window.location.reload()
     }
     return (

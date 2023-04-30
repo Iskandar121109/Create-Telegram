@@ -12,7 +12,7 @@ export const ContactList = ({ bgDark,
       <SearchContact bgDark={bgDark}
         setBgDark={setBgDark} handleSearch={handleSearch} setShowMenuBurger={setShowMenuBurger} showMenuBurger={showMenuBurger} />
       <div className='flex flex-col gap-1 '>
-        {filterContacts.map(contact => (
+        { filterContacts.map(contact => (
           < Contact
             bgDark={bgDark}
             setBgDark={setBgDark}

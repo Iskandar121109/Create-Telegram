@@ -5,7 +5,7 @@ import { MessageInput } from './MessageInput'
 import { MessageList } from './MessageList'
 import { SearchMessage } from './SearchMessage';
 
-export const MessageBox = ({ contact, showContact, bgDark, contacts }) => {
+export const MessageBox = ({ contact, showContact, bgDark}) => {
 
   const [messages, setMessages] = useState([
     {
@@ -13,15 +13,15 @@ export const MessageBox = ({ contact, showContact, bgDark, contacts }) => {
       text: 'Lorem ipsum dolor sit',
       date: moment().format('LT'),
       senderId: 1,
-      receiverId: 1
+      receiverId: 2
     },
 
     {
       id: 2,
       text: 'how are you ?',
       date: moment().format('LT'),
-      senderId: 1,
-      receiverId: 2
+      senderId: 2,
+      receiverId: 1
     },
     {
       id: 3,
@@ -87,7 +87,7 @@ export const MessageBox = ({ contact, showContact, bgDark, contacts }) => {
 
   useEffect(() => {
     if (!contact) return;
-    setFilteredMessages(messages.filter((message) => message.senderId === 1 && message.receiverId === contact.id));
+    setFilteredMessages(messages.filter((message) => (message.senderId === 2 && message.receiverId === contact.id)));
   }, [contactID])
 
   const [messagesLast, setMessagesLast] = useState([
@@ -124,13 +124,12 @@ export const MessageBox = ({ contact, showContact, bgDark, contacts }) => {
 
   useEffect(() => {
     if (!contact) return;
-    setFilterLastMess(messagesLast.filter((message) => message.senderId === 3 && message.receiverId === contact.id))
+    setFilterLastMess(messagesLast.filter((message) => message.senderId === 1 && message.receiverId === contact.id))
   }, [contactID])
 
   const [showSearchMesseges, setShowSeachMessages] = useState(false);
 
   const [messagesInstore, setMessagesInStore] = useState(JSON.parse(localStorage.getItem("messeges")));
-
   const deleteMessage = (id) => {
     setMessagesInStore(messagesInstore.filter(message => message.id !== id));
   }
@@ -138,7 +137,6 @@ export const MessageBox = ({ contact, showContact, bgDark, contacts }) => {
   useEffect(() => {
     localStorage.setItem('messeges', JSON.stringify(messagesInstore))
   }, [messagesInstore])
-
 
   return (
     <div className='flex w-[70%] h-[100vh]'>
@@ -158,6 +156,7 @@ export const MessageBox = ({ contact, showContact, bgDark, contacts }) => {
           filterLastMess={filterLastMess}
           messagesInstore={messagesInstore}
         />
+
         <MessageInput
           setMessagesInStore={setMessagesInStore}
           messagesInstore={messagesInstore}
@@ -168,7 +167,11 @@ export const MessageBox = ({ contact, showContact, bgDark, contacts }) => {
           bgDark={bgDark}
         />
       </div>
-      <SearchMessage bgDark={bgDark} messages={messages} showSearchMesseges={showSearchMesseges} setShowSeachMessage={setShowSeachMessages} />
+      <SearchMessage
+        bgDark={bgDark}
+        messages={messages}
+        showSearchMesseges={showSearchMesseges}
+        setShowSeachMessage={setShowSeachMessages} />
     </div>
   )
 }
