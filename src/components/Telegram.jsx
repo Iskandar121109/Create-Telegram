@@ -100,6 +100,7 @@ export const Telegram = () => {
         }
     ]);
     const [showContact, setShowContact] = useState([]);
+
     const showHeaderContact = (id) => {
         setShowContact([contacts.find(contact => contact.id === id)])
     }
@@ -117,6 +118,7 @@ export const Telegram = () => {
     }, [])
 
     const getContacts = JSON.parse(localStorage.getItem('contacts'));
+
     const contactsForSearch = [
         {
             id: 11,
@@ -233,11 +235,17 @@ export const Telegram = () => {
         password: ''
     })
     const [loggedIn, setLoggedIn] = useState(false);
+    const [getArrMesseges, setGetArrMesseges] = useState([]);
+    
+    const getFilterMesseges = (arr) => {
+        setGetArrMesseges(arr && arr)
+    }
     return (
         <>
             {loggedIn ?
                 <div className='flex relative'>
                     <ContactList
+                        getArrMesseges={getArrMesseges}
                         bgDark={bgDark}
                         setBgDark={setBgDark}
                         showMenuBurger={showMenuBurger}
@@ -252,6 +260,7 @@ export const Telegram = () => {
                         choosenContact={choosenContact}
                     />
                     <MessageBox
+                        getFilterMesseges={getFilterMesseges}
                         bgDark={bgDark}
                         contact={choosenContact}
                         showContact={showContact}

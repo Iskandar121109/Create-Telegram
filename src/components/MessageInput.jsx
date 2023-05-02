@@ -7,15 +7,14 @@ import EmojiPicker from 'emoji-picker-react';
 
 
 export const MessageInput = ({
-  messages, setMessages, setMessagesInStore, messagesInstore, bgDark }) => {
+  messages, setMessages, contact, bgDark, getContacts }) => {
+  
   const [emojiVisible, setEmojiVisible] = useState(false);
   const [emojiSelect, setEmojiSelect] = useState(null);
 
+
   const [newMessage, setNewMessege] = useState({
-    id: crypto.randomUUID(),
     text: '',
-    senderId: 1,
-    receiverId: 2
   });
 
   useEffect(() => {
@@ -26,20 +25,18 @@ export const MessageInput = ({
     e.preventDefault();
     if (newMessage.text !== "") {
       setMessages([...messages, newMessage]);
-      setMessagesInStore([...messagesInstore, newMessage]);
+      // setMessagesInStore([...messagesInstore, newMessage]);
       setNewMessege({
-        id: crypto.randomUUID(),
         text: '',
-        senderId: 1,
-        receiverId: 1,
-        date: moment().format('LT')
+        date: ''
       });
       setEmojiSelect(null);
     }
   }
+
   const handleChange = (e) => {
     setNewMessege({
-      ...newMessage, text: e.target.value, emoji: emojiSelect, date: moment().format('LT')
+      ...newMessage, id: crypto.randomUUID(), text: e.target.value, senderId: 1, receiverId: contact.id, emoji: emojiSelect, date: moment().format('LT')
     });
   }
 

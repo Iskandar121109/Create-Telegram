@@ -4,10 +4,9 @@ export const LoginPage = ({ setLoggedIn, userLogin, setLoginUser, user, setUser 
 
     const onUserInput = (key) => (e) => {
         setUser(
-            { ...user, [key]: e.target.value }
+            { ...user, senderId: 1, [key]: e.target.value }
         )
     }
-
     useEffect(() => {
         if (userLogin.length === 0) {
             return
@@ -22,7 +21,7 @@ export const LoginPage = ({ setLoggedIn, userLogin, setLoginUser, user, setUser 
         localStorage.setItem('user', JSON.stringify(userLogin));
         setRegistredText('Registered')
         setUser({
-            id: crypto.randomUUID(),
+            id: '',
             login: '',
             password: ''
         })

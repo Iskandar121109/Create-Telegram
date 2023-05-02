@@ -5,138 +5,51 @@ import { MessageInput } from './MessageInput'
 import { MessageList } from './MessageList'
 import { SearchMessage } from './SearchMessage';
 
-export const MessageBox = ({ contact, showContact, bgDark}) => {
-
+export const MessageBox = ({ contact, showContact, bgDark, getFilterMesseges }) => {
+  // const getContacts = JSON.parse(localStorage.getItem('contacts')).map(contact => contact.id);
   const [messages, setMessages] = useState([
     {
       id: 1,
       text: 'Lorem ipsum dolor sit',
       date: moment().format('LT'),
       senderId: 1,
-      receiverId: 2
-    },
-
-    {
-      id: 2,
-      text: 'how are you ?',
-      date: moment().format('LT'),
-      senderId: 2,
       receiverId: 1
-    },
-    {
-      id: 3,
-      text: 'hello',
-      date: moment().format('LT'),
-      senderId: 1,
-      receiverId: 3
-    },
-    {
-      id: 4,
-      text: 'Hello Telegramm',
-      date: moment().format('LT'),
-      senderId: 1,
-      receiverId: 4
-    },
-    {
-      id: 5,
-      text: 'Lorem ipsum dolor sit',
-      date: moment().format('LT'),
-      senderId: 1,
-      receiverId: 5
-    },
-
-    {
-      id: 6,
-      text: 'how are you ?',
-      date: moment().format('LT'),
-      senderId: 1,
-      receiverId: 6
-    },
-    {
-      id: 7,
-      text: 'hello',
-      date: moment().format('LT'),
-      senderId: 1,
-      receiverId: 7
-    },
-    {
-      id: 8,
-      text: 'Hello Telegramm',
-      date: moment().format('LT'),
-      senderId: 1,
-      receiverId: 8
-    },
-    {
-      id: 9,
-      text: 'Lorem ipsum dolor sit',
-      date: moment().format('LT'),
-      senderId: 1,
-      receiverId: 9
-    },
-
-    {
-      id: 10,
-      text: 'how are you ?',
-      date: moment().format('LT'),
-      senderId: 1,
-      receiverId: 10
-    },
+    }
   ]);
+  // localStorage.removeItem('messeges')
+  // localStorage.setItem('messeges', JSON.stringify(messages))
+  const [getContacts, setGetContacts] = useState();
+  useEffect(() => {
+    setGetContacts(JSON.parse(localStorage.getItem('user')))
+  }, [messages])
+  useEffect(() => {
+    localStorage.setItem('messeges', JSON.stringify(messages))
+  }, [messages])
+
+
   const contactID = contact && contact.id;
-  const [filteredMessages, setFilteredMessages] = useState([]);
+
+  const [getMessegesInLocal, setGetMessegesInLocal] = useState([]);
+
+  useEffect(() => {
+    const newMessagesInLocal = JSON.parse(localStorage.getItem('messeges'));
+    setGetMessegesInLocal([...getMessegesInLocal, ...newMessagesInLocal])
+  }, [messages])
+
+  const [filteredMessages, setFilteredMessages] = useState(getMessegesInLocal);
 
   useEffect(() => {
     if (!contact) return;
-    setFilteredMessages(messages.filter((message) => (message.senderId === 2 && message.receiverId === contact.id)));
-  }, [contactID])
-
-  const [messagesLast, setMessagesLast] = useState([
-    {
-      id: 1,
-      text: 'hello',
-      date: moment().format('LT'),
-      senderId: 3,
-      receiverId: 1
-    },
-    {
-      id: 2,
-      text: 'how are you ?',
-      date: moment().format('LT'),
-      senderId: 2,
-      receiverId: 1
-    },
-    {
-      id: 3,
-      text: 'bla bla ',
-      date: moment().format('LT'),
-      senderId: 4,
-      receiverId: 1
-    },
-    {
-      id: 4,
-      text: 'Hello Telegramm',
-      date: moment().format('LT'),
-      senderId: 3,
-      receiverId: 2
-    },
-  ]);
-  const [filterLastMess, setFilterLastMess] = useState([])
-
-  useEffect(() => {
-    if (!contact) return;
-    setFilterLastMess(messagesLast.filter((message) => message.senderId === 1 && message.receiverId === contact.id))
-  }, [contactID])
+    setFilteredMessages(messages.filter((message) => (message.senderId === 1 && message.receiverId === contact.id)));
+  }, [messages, contactID])
 
   const [showSearchMesseges, setShowSeachMessages] = useState(false);
 
-  const [messagesInstore, setMessagesInStore] = useState(JSON.parse(localStorage.getItem("messeges")));
   const deleteMessage = (id) => {
-    setMessagesInStore(messagesInstore.filter(message => message.id !== id));
+    setFilteredMessages(filteredMessages.filter(message => message.id !== id));
   }
 
-  useEffect(() => {
-    localStorage.setItem('messeges', JSON.stringify(messagesInstore))
-  }, [messagesInstore])
+  getFilterMesseges(filteredMessages);
 
   return (
     <div className='flex w-[70%] h-[100vh]'>
@@ -153,13 +66,11 @@ export const MessageBox = ({ contact, showContact, bgDark}) => {
           messages={messages}
           filteredMessages={filteredMessages}
           showContact={showContact}
-          filterLastMess={filterLastMess}
-          messagesInstore={messagesInstore}
         />
 
         <MessageInput
-          setMessagesInStore={setMessagesInStore}
-          messagesInstore={messagesInstore}
+          getContacts={getContacts}
+          contact={contact}
           messages={messages}
           setMessages={setMessages}
           filteredMessages={filteredMessages}

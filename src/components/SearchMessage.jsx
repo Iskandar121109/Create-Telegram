@@ -5,7 +5,6 @@ import { BsCalendar4 } from "react-icons/bs";
 
 export const SearchMessage = ({ showSearchMesseges, setShowSeachMessage, bgDark }) => {
 
-
     const getMessagesFor = JSON.parse(localStorage.getItem("messeges"));
     const [filteredMessage, setFilteredMessage] = useState(getMessagesFor);
 

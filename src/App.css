@@ -16,7 +16,7 @@
 }
 
 .headerBgDark {
-background-color: rgb(0 0 0 / 0.7);
+  background-color: rgb(0 0 0 / 0.7);
 }
 
 .inputSearchMessage {
@@ -27,13 +27,17 @@ background-color: rgb(0 0 0 / 0.7);
 
 
 .contactList {
+  border-right: 1px solid blue;
   overflow: auto;
   max-height: 100vh;
-  cursor: pointer;
 }
+/* .contactList:hover {
+  cursor: e-resize;
+} */
 
 .contactList::-webkit-scrollbar {
   width: 4px;
+  cursor: default;
 }
 
 .contactList::-webkit-scrollbar-thumb {
