@@ -1,9 +1,12 @@
 import React, { useState } from 'react'
 import { AiOutlineSearch } from "react-icons/ai";
 import { FaEllipsisV } from "react-icons/fa";
+import { useSelector } from 'react-redux';
 import { HeaderEllipseModal } from './HeaderEllipseModal';
 
-export const Header = ({ showContact, showSearchMesseges, setShowSeachMessage, bgDark }) => {
+export const Header = ({ showContact, showSearchMesseges, setShowSeachMessage }) => {
+  const bgDark = useSelector(state => state.toolkit.bgDark);
+
   const [showElModal, setShowElModal] = useState(false);
   const onDark = bgDark ? 'bg-black/70 text-white' : 'bg-white';
   const headerStyle = ['w-[100%] relative h-[10vh]  flex items-center justify-between pr-4', onDark];
@@ -26,7 +29,7 @@ export const Header = ({ showContact, showSearchMesseges, setShowSeachMessage, b
         <span className={iconsHover}><AiOutlineSearch onClick={() => setShowSeachMessage(!showSearchMesseges)} className='z-10 text-3xl top-2 text-gray-400' /></span>
         <span className={iconsHover}><FaEllipsisV onClick={() => setShowElModal(!showElModal)} className='text-2xl' /></span>
       </div>
-      {showElModal && <HeaderEllipseModal bgDark={bgDark} />}
+      {showElModal && <HeaderEllipseModal />}
     </div>
   )
 }

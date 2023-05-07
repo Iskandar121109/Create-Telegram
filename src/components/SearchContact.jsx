@@ -1,11 +1,14 @@
 import React from 'react'
 import { RxHamburgerMenu } from "react-icons/rx";
 import { AiOutlineSearch } from "react-icons/ai";
-export const SearchContact = ({ handleSearch, setShowMenuBurger, showMenuBurger, bgDark }) => {
+import { useSelector } from 'react-redux'
+
+export const SearchContact = ({ handleSearch, setShowMenuBurger, showMenuBurger }) => {
+    const bgDark = useSelector(state => state.toolkit.bgDark);
     const onDarkMode = bgDark ? 'text-black' : '';
     const darkHowerBurger = bgDark ? 'hover:bg-slate-600 rounded-full px-2 py-2' : 'hover:bg-slate-300 rounded-full px-2 py-2';
     const styleSeContact = ['w-[100%] py-2 flex gap-2 justify-around items-center', onDarkMode]
-    
+
     return (
         <div className={styleSeContact.join(' ')}>
             <div className={darkHowerBurger} >

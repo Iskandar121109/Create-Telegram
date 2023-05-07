@@ -7,8 +7,12 @@ import { RxQuestionMarkCircled } from "react-icons/rx";
 import { AiOutlineBug } from "react-icons/ai";
 import { TbLetterK } from "react-icons/tb";
 import { IoExitOutline } from "react-icons/io5";
+import { useDispatch, useSelector } from 'react-redux'
+import { setBgDark } from '../toolkitRedux/toolkitReducer';
 
-export const ShowBurgerMenu = ({ showMenuBurger, bgDark, setBgDark, setLoggedIn }) => {
+export const ShowBurgerMenu = ({ showMenuBurger, setLoggedIn }) => {
+    const bgDark = useSelector(state => state.toolkit.bgDark);
+    const dispatch = useDispatch();
     const darkModeStyle = bgDark ? 'bg-black/90 text-white' : 'bg-gray-100/100';
     const animateShowing = !showMenuBurger ? 'scale-0 transition-all' : 'scale-1 transition-all';
     const stylesForBurgerMenu = [animateShowing, 'absolute left-7 top-[70px]  w-[270px] px-3 py-3 text-xl items-start text-gray-500 flex flex-col gap-2'];
@@ -23,7 +27,7 @@ export const ShowBurgerMenu = ({ showMenuBurger, bgDark, setBgDark, setLoggedIn 
             <p className={stylesItems.join(' ')}><FiBookmark className='' />Избранное</p>
             <p className={stylesItems.join(' ')}><CiUser />Контакты</p>
             <p className={stylesItems.join(' ')}><CiSettings />Настройки</p>
-            <p onClick={() => setBgDark(!bgDark)} className={stylesItems.join(' ')}><BsMoonStars />Ночной режим{bgDark ? <FaToggleOn /> : <FaToggleOff />}</p>
+            <p onClick={() => dispatch(setBgDark())} className={stylesItems.join(' ')}><BsMoonStars />Ночной режим{bgDark ? <FaToggleOn /> : <FaToggleOff />}</p>
             <p className={stylesItems.join(' ')}><FaHubspot /> Анимация <FaToggleOn /></p>
             <p className={stylesItems.join(' ')}><RxQuestionMarkCircled />Вазможности телеграм</p>
             <p className={stylesItems.join(' ')}><AiOutlineBug />Report Bug</p>

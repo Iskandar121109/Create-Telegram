@@ -2,8 +2,10 @@ import React from 'react'
 import { HiOutlineBellSlash, HiOutlineCheckCircle } from "react-icons/hi2";
 import { BsFlag } from "react-icons/bs";
 import { MdOutlineDeleteOutline } from "react-icons/md";
+import { useSelector } from 'react-redux';
 
-export const HeaderEllipseModal = ({ bgDark }) => {
+export const HeaderEllipseModal = () => {
+    const bgDark = useSelector(state => state.toolkit.bgDark);
     const darkModeStyle = bgDark ? 'bg-black/70 text-white' : 'bg-gray-100/100';
     const styleHeaderEllipse = ['flex flex-col gap-2 absolute w-[240px] px-4 py-2 h-[150px] top-[80px] rounded-xl right-5', darkModeStyle]
     return (

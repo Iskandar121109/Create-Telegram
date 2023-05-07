@@ -1,31 +1,35 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { CiFaceSmile } from "react-icons/ci";
 import { MdAttachFile } from "react-icons/md";
 import { BiMicrophone } from "react-icons/bi";
 import moment from 'moment';
-import EmojiPicker from 'emoji-picker-react';
+import { useSelector } from 'react-redux';
+import EmojiPicker from 'emoji-picker-react'
 
+export const MessageInput = ({ messages, setMessages, contact }) => {
+  const bgDark = useSelector(state => state.toolkit.bgDark);
 
-export const MessageInput = ({
-  messages, setMessages, contact, bgDark, getContacts }) => {
-  
   const [emojiVisible, setEmojiVisible] = useState(false);
   const [emojiSelect, setEmojiSelect] = useState(null);
-
 
   const [newMessage, setNewMessege] = useState({
     text: '',
   });
 
-  useEffect(() => {
-    JSON.parse(localStorage.getItem("messeges"))
-  }, [])
-
   const addNewMessage = (e) => {
     e.preventDefault();
     if (newMessage.text !== "") {
       setMessages([...messages, newMessage]);
-      // setMessagesInStore([...messagesInstore, newMessage]);
+      fetch('http://127.0.0.1:3001/create-messages', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(newMessage)
+      })
+        .then(response => response.json())
+        .then(data => data)
+        .catch(error => console.error(error))
       setNewMessege({
         text: '',
         date: ''
@@ -36,7 +40,12 @@ export const MessageInput = ({
 
   const handleChange = (e) => {
     setNewMessege({
-      ...newMessage, id: crypto.randomUUID(), text: e.target.value, senderId: 1, receiverId: contact.id, emoji: emojiSelect, date: moment().format('LT')
+      ...newMessage, id: crypto.randomUUID(),
+      text: e.target.value,
+      senderId: 1,
+      receiverId: contact.id,
+      emoji: emojiSelect,
+      date: moment().format('LT')
     });
   }
 
@@ -61,6 +70,11 @@ export const MessageInput = ({
             onChange={handleChange}
             value={newMessage.text}
           />
+          {emojiSelect && (
+            <span className="mx-2" role="img" aria-label="emoji">
+              {emojiSelect}
+            </span>
+          )}
           <MdAttachFile className='text-3xl text-gray-500 cursor-pointer' />
         </form>
       </div>

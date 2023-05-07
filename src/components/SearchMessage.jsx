@@ -1,16 +1,20 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 import { AiOutlineSearch, AiOutlineClose } from "react-icons/ai";
 import { BsCalendar4 } from "react-icons/bs";
+import { useSelector } from 'react-redux';
 
-export const SearchMessage = ({ showSearchMesseges, setShowSeachMessage, bgDark }) => {
+export const SearchMessage = ({ showSearchMesseges, setShowSeachMessage, messages }) => {
+    const bgDark = useSelector(state => state.toolkit.bgDark);
 
-    const getMessagesFor = JSON.parse(localStorage.getItem("messeges"));
-    const [filteredMessage, setFilteredMessage] = useState(getMessagesFor);
+
+
+
+    const [filteredMessage, setFilteredMessage] = useState();
 
     const onSearchMessages = (e) => {
         const value = e.target.value.toLowerCase()
-        const filteredMessages = getMessagesFor.filter(message => message.text.toLowerCase().includes(value));
+        const filteredMessages = messages.filter(message => message.text.toLowerCase().includes(value));
         setFilteredMessage(filteredMessages)
     }
     const darkModeStyle = bgDark ? 'bg-black/70 text-white' : 'bg-gray-100';
