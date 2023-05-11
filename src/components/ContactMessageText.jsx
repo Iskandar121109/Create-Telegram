@@ -27,8 +27,9 @@ export const ContactMessageText = ({ getCount, contact }) => {
                 .filter(message => message.receiverId === contact.id)
                 .splice(-1)
                 .map(message => (
-                    <div key={message.id} className="flex text-start overflow-hidden w-[100%]">
-                        <span className="max-w-[80%] overflow-hidden whitespace-nowrap">{message.text}</span>
+                    <div key={message.id} className="flex items-center justify-between overflow-hidden w-[100%]">
+                        <span className="max-w-[90%] overflow-hidden whitespace-nowrap">{message.text}</span>
+                        <p className='text-[12px] text-end text-gray-400'>{message.date}</p>
                     </div>
                 ))}
         </div>

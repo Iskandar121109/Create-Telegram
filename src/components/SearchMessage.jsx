@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 
 import { AiOutlineSearch, AiOutlineClose } from "react-icons/ai";
 import { BsCalendar4 } from "react-icons/bs";
@@ -7,15 +7,20 @@ import { Context } from '../context/TelegramContext';
 
 export const SearchMessage = () => {
     const bgDark = useSelector(state => state.toolkit.bgDark);
-    const { showSearchMesseges, setShowSeachMessages, messages } = useContext(Context);
+    const { showSearchMesseges, setShowSeachMessages, filteredMessages, choosenContact } = useContext(Context);
 
-    const [filteredMessage, setFilteredMessage] = useState();
+
+    const [filteredMessage, setFilteredMessage] = useState([]);
+    
+    useEffect(() => {
+        setFilteredMessage(filteredMessages)
+    }, [choosenContact, filteredMessages])
 
     const onSearchMessages = (e) => {
-        const value = e.target.value.toLowerCase()
-        const filteredMessages = messages.filter(message => message.text.toLowerCase().includes(value));
-        setFilteredMessage(filteredMessages)
+        const value = e.target.value
+        setFilteredMessage(filteredMessages.filter(message => message.text.toLowerCase().includes(value)))
     }
+
     const darkModeStyle = bgDark ? 'bg-black/70 text-white' : 'bg-gray-100';
     const searchContainer = !showSearchMesseges ? 'h-[100vh] w-[0px] searchMessegeNone searchMessege' : 'w-[600px] h-[100vh] searchMessege';
     const searchContainerStyles = [darkModeStyle, searchContainer].join(' ');
@@ -27,7 +32,7 @@ export const SearchMessage = () => {
                 </div>
                 <div className='w-[80%] rounded-full relative'>
                     <AiOutlineSearch className='absolute z-10 text-2xl top-3 left-3 text-gray-400' />
-                    <input onChange={() => onSearchMessages} className='rounded-full w-[100%] h-[45px] outline-none pl-11 pr-2 py-1 border border-gray-300' type="search" placeholder='Search contact' />
+                    <input onChange={(e) => onSearchMessages(e)} className='rounded-full w-[100%] h-[45px] outline-none pl-11 pr-2 py-1 border border-gray-300' type="search" placeholder='Search contact' />
                 </div>
                 <BsCalendar4 className='text-2xl text-gray-500 cursor-pointer' />
             </div>

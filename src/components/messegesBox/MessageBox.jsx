@@ -3,6 +3,7 @@ import { Header } from '../Header';
 import { MessageInput } from './MessageInput'
 import { MessageList } from './MessageList'
 import { SearchMessage } from '../SearchMessage';
+import { AboutContact } from '../AboutContact';
 
 export const MessageBox = () => {
   const bgDark = useSelector(state => state.toolkit.bgDark);
@@ -14,7 +15,8 @@ export const MessageBox = () => {
         <MessageList />
         <MessageInput />
       </div>
-      <SearchMessage />
+      {<AboutContact />}
+      { <SearchMessage />}
     </div>
   )
 }

@@ -175,7 +175,7 @@ export const TelegramContext = ({ children }) => {
     }, [messages, choosenContact])
 
     const [showSearchMesseges, setShowSeachMessages] = useState(false);
-
+    const [showAboutContact, setShowAboutContact] = useState(false);
     // MessageList 
 
     const contactImg = showContact && showContact.map(contact => contact.img);
@@ -189,6 +189,7 @@ export const TelegramContext = ({ children }) => {
             setMessages(updatedMessages);
         }
         setEditingMessageId(null);
+        getMessages();
     };
     const deleteMessage = async (id) => {
         try {
@@ -281,6 +282,7 @@ export const TelegramContext = ({ children }) => {
         getContacts, setGetContacts,
         filteredMessages, setFilteredMessages,
         showSearchMesseges, setShowSeachMessages,
+        showAboutContact, setShowAboutContact,
         // MessageList 
         contactImg, editingMessageId, setEditingMessageId, handleUpdateMessage,
         deleteMessage, bgDark, mListStyle, darkModeStyle,

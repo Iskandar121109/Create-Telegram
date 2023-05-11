@@ -7,7 +7,7 @@ import { HeaderEllipseModal } from './HeaderEllipseModal';
 
 export const Header = () => {
   const bgDark = useSelector(state => state.toolkit.bgDark);
-  const { showContact, showSearchMesseges, setShowSeachMessages } = useContext(Context)
+  const { showContact, showSearchMesseges, setShowSeachMessages, showAboutContact, setShowAboutContact } = useContext(Context)
   const [showElModal, setShowElModal] = useState(false);
   const onDark = bgDark ? 'bg-black/70 text-white' : 'bg-white';
   const headerStyle = ['w-[100%] relative h-[10vh]  flex items-center justify-between pr-4', onDark];
@@ -15,8 +15,8 @@ export const Header = () => {
   return (
     <div className={headerStyle.join(' ')}>
       {showContact && showContact.map(contact => (
-        <div key={contact.id} className='flex gap-5 items-center text-2xl ml-10 cursor-pointer '>
-          <div className='flex items-center'>
+        <div key={contact.id} className='flex gap-5 items-center text-2xl ml-10 cursor-pointer ' onClick={() => setShowAboutContact(!showAboutContact)}>
+          <div className='flex items-center' >
             <img className='w-[55px] h-[55px] rounded-full' src={contact.img} alt={contact.firstName} />
           </div>
           <div className='m-0 text-[14px]'>
@@ -25,7 +25,6 @@ export const Header = () => {
           </div>
         </div>
       ))}
-
       <div className='flex items-center gap-3'>
         <span className={iconsHover}><AiOutlineSearch onClick={() => setShowSeachMessages(!showSearchMesseges)} className='z-10 text-3xl top-2 text-gray-400' /></span>
         <span className={iconsHover}><FaEllipsisV onClick={() => setShowElModal(!showElModal)} className='text-2xl' /></span>
