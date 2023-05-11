@@ -1,9 +1,12 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { RxHamburgerMenu } from "react-icons/rx";
 import { AiOutlineSearch } from "react-icons/ai";
 import { useSelector } from 'react-redux'
+import { Context } from '../context/TelegramContext';
 
-export const SearchContact = ({ handleSearch, setShowMenuBurger, showMenuBurger }) => {
+export const SearchContact = () => {
+    const { handleSearch, setShowMenuBurger, showMenuBurger } = useContext(Context)
+
     const bgDark = useSelector(state => state.toolkit.bgDark);
     const onDarkMode = bgDark ? 'text-black' : '';
     const darkHowerBurger = bgDark ? 'hover:bg-slate-600 rounded-full px-2 py-2' : 'hover:bg-slate-300 rounded-full px-2 py-2';

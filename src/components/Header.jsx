@@ -1,12 +1,13 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { AiOutlineSearch } from "react-icons/ai";
 import { FaEllipsisV } from "react-icons/fa";
 import { useSelector } from 'react-redux';
+import { Context } from '../context/TelegramContext';
 import { HeaderEllipseModal } from './HeaderEllipseModal';
 
-export const Header = ({ showContact, showSearchMesseges, setShowSeachMessage }) => {
+export const Header = () => {
   const bgDark = useSelector(state => state.toolkit.bgDark);
-
+  const { showContact, showSearchMesseges, setShowSeachMessages } = useContext(Context)
   const [showElModal, setShowElModal] = useState(false);
   const onDark = bgDark ? 'bg-black/70 text-white' : 'bg-white';
   const headerStyle = ['w-[100%] relative h-[10vh]  flex items-center justify-between pr-4', onDark];
@@ -26,7 +27,7 @@ export const Header = ({ showContact, showSearchMesseges, setShowSeachMessage })
       ))}
 
       <div className='flex items-center gap-3'>
-        <span className={iconsHover}><AiOutlineSearch onClick={() => setShowSeachMessage(!showSearchMesseges)} className='z-10 text-3xl top-2 text-gray-400' /></span>
+        <span className={iconsHover}><AiOutlineSearch onClick={() => setShowSeachMessages(!showSearchMesseges)} className='z-10 text-3xl top-2 text-gray-400' /></span>
         <span className={iconsHover}><FaEllipsisV onClick={() => setShowElModal(!showElModal)} className='text-2xl' /></span>
       </div>
       {showElModal && <HeaderEllipseModal />}

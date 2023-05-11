@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { useSelector } from 'react-redux'
+import { Context } from '../context/TelegramContext';
 import { ContactMessageText } from './ContactMessageText';
 
-export const Contact = ({
-    contact, showHeaderContact, onContactClick, selectShoose, choosenContact, messageCountForContact }) => {
+export const Contact = ({contact}) => {
     const bgDark = useSelector(state => state.toolkit.bgDark);
+    const { showHeaderContact, onContactClick, selectShoose, choosenContact } = useContext(Context);
     const [action, setAction] = useState(false);
 
     const [count, setCount] = useState(0);
@@ -30,11 +31,7 @@ export const Contact = ({
             <div>
                 <p>{contact.firstName} {contact.lastName}</p>
                 <div className='text-[17px]'>{
-                    <ContactMessageText
-                        choosenContact={choosenContact}
-                        contact={contact}
-                        getCount={getCount}
-                    />}</div>
+                    <ContactMessageText getCount={getCount} contact={contact}/>}</div>
             </div>
             <div className='text-[16px] bg-green-500 px-3 rounded-3xl text-white absolute right-2'>
                 {count && count}

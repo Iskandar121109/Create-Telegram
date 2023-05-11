@@ -1,23 +1,25 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import { Context } from "../context/TelegramContext";
 
-export const ContactMessageText = ({ choosenContact, contact, getCount }) => {
+export const ContactMessageText = ({ getCount, contact }) => {
+    const { choosenContact, messages } = useContext(Context);
     const [messagesContacts, setMessagesContacts] = useState([]);
-    useEffect(() => {
-        if (choosenContact) {
-            fetch("http://127.0.0.1:3001/messages-contact/")
-                .then((response) => response.json())
-                .then((messages) => {
-                    setMessagesContacts(messages);
-                    const filteredMessages = messages.filter(
-                        (message) => message.receiverId === contact.id
-                    );
-                    getCount(filteredMessages.length);
-                });
-        } else {
-            setMessagesContacts([]);
-        }
-    }, [choosenContact, messagesContacts]);
 
+    useEffect(() => {
+        getContactMessage()
+    }, [messages]);
+
+    const getContactMessage = () => {
+        fetch(`http://127.0.0.1:3001/messages-contact/${contact.id}`)
+            .then((response) => response.json())
+            .then((messages) => {
+                setMessagesContacts(messages);
+                const filteredMessages = messages && messages.filter(
+                    (message) => message.receiverId === contact.id
+                );
+                getCount(filteredMessages.length);
+            });
+    }
 
     return (
         <div>

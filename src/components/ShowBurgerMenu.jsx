@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { FiBookmark } from "react-icons/fi";
 import { CiUser, CiSettings } from "react-icons/ci";
 import { BsMoonStars } from "react-icons/bs";
@@ -9,8 +9,10 @@ import { TbLetterK } from "react-icons/tb";
 import { IoExitOutline } from "react-icons/io5";
 import { useDispatch, useSelector } from 'react-redux'
 import { setBgDark } from '../toolkitRedux/toolkitReducer';
+import { Context } from '../context/TelegramContext';
 
-export const ShowBurgerMenu = ({ showMenuBurger, setLoggedIn }) => {
+export const ShowBurgerMenu = () => {
+    const {showMenuBurger, setLoggedIn} = useContext(Context)
     const bgDark = useSelector(state => state.toolkit.bgDark);
     const dispatch = useDispatch();
     const darkModeStyle = bgDark ? 'bg-black/90 text-white' : 'bg-gray-100/100';

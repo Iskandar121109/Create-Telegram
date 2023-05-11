@@ -1,6 +1,8 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
+import { Context } from '../context/TelegramContext'
 
-export const LoginPage = ({ setLoggedIn, userLogin, setLoginUser, user, setUser }) => {
+export const LoginPage = () => {
+    const { setLoggedIn, userLogin, setLoginUser, user, setUser } = useContext(Context);
 
     const onUserInput = (key) => (e) => {
         setUser(
