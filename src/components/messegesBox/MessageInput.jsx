@@ -18,7 +18,7 @@ export const MessageInput = () => {
             setEmojiVisible(!emojiVisible)
           }} />
         </div>
-        <CiFaceSmile onClick={() => setEmojiVisible(!emojiVisible)} className='text-3xl text-gray-500 cursor-pointer ' />
+        <CiFaceSmile onClick={() => setEmojiVisible(!emojiVisible)} className='text-3xl text-gray-500 cursor-pointer hover:text-blue-500' />
         <form className='w-[100%] flex' onSubmit={addNewMessage}>
           <input
             type="text"

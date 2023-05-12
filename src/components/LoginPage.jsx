@@ -1,27 +1,30 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { Context } from '../context/TelegramContext'
 
 export const LoginPage = () => {
-    const { setLoggedIn, userLogin, setLoginUser, user, setUser } = useContext(Context);
+    const { setLoggedIn } = useContext(Context);
 
+    const [user, setUser] = useState({
+        id: '',
+        login: '',
+        password: ''
+    })
     const onUserInput = (key) => (e) => {
         setUser(
             { ...user, senderId: 1, [key]: e.target.value }
         )
     }
-    useEffect(() => {
-        if (userLogin.length === 0) {
-            return
-        } else {
-            localStorage.setItem('user', JSON.stringify(userLogin));
-        }
-    }, [userLogin])
 
     const [registredText, setRegistredText] = useState('Registration');
     const onRegister = () => {
-        setLoginUser([...userLogin, user])
-        localStorage.setItem('user', JSON.stringify(userLogin));
         setRegistredText('Registered')
+        fetch('http://localhost:3001/create-user', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ ...user, id: crypto.randomUUID() })
+        })
         setUser({
             id: '',
             login: '',
@@ -31,18 +34,21 @@ export const LoginPage = () => {
 
     const [error, setError] = useState('');
 
-    const handleLogin = () => {
-        const users = JSON.parse(localStorage.getItem('user'));
-        const currentUser = users.find(user => user.login === "Leanne" && user.password === "asd123");
-        const currentUserLast = users.find(user => user.login === "Ervin" && user.password === "asdqwe");
-        if ((currentUser && currentUser.login === user.login && currentUser.password === user.password) ||
-            (currentUserLast && currentUserLast.login === user.login && currentUserLast.password === user.password)) {
+    const handleLogin = async () => {
+        const response = await fetch('http://localhost:3001/login', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ login: user.login, password: user.password })
+        });
+
+        if (response.ok) {
             setLoggedIn(true);
         } else {
-            setError('Неверный логин и пароль')
-            if (user.login === '' &&
-                user.password === '') {
-                setError('Поля не должно быть пустым')
+            setError('Неверный логин и пароль');
+            if (user.login === '' && user.password === '') {
+                setError('Поля не должны быть пустыми');
             }
         }
     };
@@ -56,8 +62,12 @@ export const LoginPage = () => {
                 <p>Добро пожаловать в Telegram  для ПК.</p>
                 <p>Быстро и безопасный официальный клиент.</p>
             </div>
-            <input className='bg-transparent border outline-green-500 border-gray-500 w-[350px] h-[50px] rounded-xl px-3 text-white' type="text" placeholder='login' onChange={onUserInput('login')} value={user.login} />
-            <input className='bg-transparent border outline-green-500 border-gray-500 w-[350px] h-[50px] rounded-xl px-3 text-white' type="password" placeholder='password' onChange={onUserInput('password')} value={user.password} />
+            <input className='bg-transparent border outline-green-500 border-gray-500 w-[350px] 
+            h-[50px] rounded-xl px-3 text-white' type="text" placeholder='login'
+                onChange={onUserInput('login')} value={user.login} />
+            <input className='bg-transparent border outline-green-500 border-gray-500 w-[350px]
+             h-[50px] rounded-xl px-3 text-white' type="password" placeholder='password'
+                onChange={onUserInput('password')} value={user.password} />
             <div className='flex gap-3 justify-end w-[70%]'>
                 <button className={registrationStyle} onClick={onRegister}>{registredText}</button>
                 <button className='bg-slate-500 px-6 py-2 hover:bg-slate-600 rounded text-white' onClick={handleLogin}>Login</button>

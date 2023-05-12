@@ -15,6 +15,8 @@ export const AboutContact = () => {
     const darkModeStyle = bgDark ? 'bg-black/70 text-white' : 'bg-white';
     const aboutContainer = !showAboutContact ? 'h-[100vh] w-[0px] searchMessegeNone searchMessege' : 'w-[600px] h-[100vh] searchMessege';
     const searchContainerStyles = [darkModeStyle, aboutContainer].join(' ');
+    const hiddenMapContacts = !showAboutContact ? 'hidden' : '';
+    const aboutMapContactStyle = ['px-5 flex flex-col gap-3 mt-7', hiddenMapContacts].join(' ')
     return (
         <div className={searchContainerStyles}>
             <div className='w-[100%] h-[10vh]  py-2 pr-2 pl-2 flex gap-2 justify-between items-center divSeach'>
@@ -37,7 +39,7 @@ export const AboutContact = () => {
                 ))}
             </div>
             {showContact.map(contact => (
-                <div key={contact.id} className='px-5 flex flex-col gap-3 mt-7'>
+                <div key={contact.id} className={aboutMapContactStyle}>
                     <div className='flex items-center gap-10'>
                         <HiOutlinePhone className='text-3xl text-gray-500' />
                         <div className='text-xl'>

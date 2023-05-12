@@ -8,7 +8,7 @@ export const TelegramContext = ({ children }) => {
     const [contacts, setContacts] = useState([]);
 
     useEffect(() => {
-        fetch('http://localhost:3001/contacts').then(response => response.json())
+        fetch('http://127.0.0.1:3001/contacts').then(response => response.json())
             .then(contacts => setContacts(contacts))
     }, []);
 
@@ -122,7 +122,7 @@ export const TelegramContext = ({ children }) => {
 
     const [filterContacts, setFilterContacts] = useState([]);
     useEffect(() => {
-        fetch('http://localhost:3001/contacts').then(response => response.json())
+        fetch('http://127.0.0.1:3001/contacts').then(response => response.json())
             .then(contacts => setFilterContacts(contacts))
     }, []);
 
@@ -138,13 +138,7 @@ export const TelegramContext = ({ children }) => {
     }
 
     const [showMenuBurger, setShowMenuBurger] = useState(false);
-    const [userLogin, setLoginUser] = useState([]);
 
-    const [user, setUser] = useState({
-        id: crypto.randomUUID(),
-        login: '',
-        password: ''
-    })
     const [loggedIn, setLoggedIn] = useState(false);
 
     // MessegeBox
@@ -159,7 +153,7 @@ export const TelegramContext = ({ children }) => {
     const [getContacts, setGetContacts] = useState([]);
 
     useEffect(() => {
-        fetch('http://localhost:3001/contacts')
+        fetch('http://127.0.0.1:3001/contacts')
             .then(response => response.json())
             .then(user => setGetContacts(user))
     }, [messages])
@@ -274,8 +268,6 @@ export const TelegramContext = ({ children }) => {
         filterContacts,
         setFilterContacts, handleSearch,
         showMenuBurger, setShowMenuBurger,
-        userLogin, setLoginUser,
-        user, setUser,
         loggedIn, setLoggedIn,
         // MessegeBox
         messages, setMessages,
