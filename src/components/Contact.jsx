@@ -29,7 +29,7 @@ export const Contact = ({contact}) => {
             className={contactStyle.join(' ')}>
             <img className='w-[55px] h-[55px] rounded-full' src={contact.img} alt={contact.firstName} />
             <div>
-                <p>{contact.firstName} {contact.lastName}</p>
+                <p>{ contact.firstName} {contact.lastName}</p>
                 <div className='text-[17px]'>{
                     <ContactMessageText getCount={getCount} contact={contact}/>}</div>
             </div>

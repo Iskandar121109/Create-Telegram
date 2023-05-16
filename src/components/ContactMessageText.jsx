@@ -8,14 +8,13 @@ export const ContactMessageText = ({ getCount, contact }) => {
     useEffect(() => {
         getContactMessage()
     }, [messages]);
-
     const getContactMessage = () => {
         fetch(`http://127.0.0.1:3001/messages-contact/${contact.id}`)
             .then((response) => response.json())
             .then((messages) => {
                 setMessagesContacts(messages);
                 const filteredMessages = messages && messages.filter(
-                    (message) => message.receiverId === contact.id
+                    (message) => message.senderId === contact.id
                 );
                 getCount(filteredMessages.length);
             });
@@ -24,7 +23,7 @@ export const ContactMessageText = ({ getCount, contact }) => {
     return (
         <div>
             {choosenContact && messagesContacts
-                .filter(message => message.receiverId === contact.id)
+                .filter(message => message.senderId === contact.id)
                 .splice(-1)
                 .map(message => (
                     <div key={message.id} className="flex items-center justify-between overflow-hidden w-[100%]">

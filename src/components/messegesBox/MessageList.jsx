@@ -1,7 +1,6 @@
 import React, { useContext, useEffect, useRef } from 'react'
 import { Context } from '../../context/TelegramContext';
-import { IncomingMessage } from './IncomingMessage';
-import { SendingMessage } from './SendingMessage';
+import { Message } from './Message';
 
 export const MessageList = () => {
     const { filteredMessages, choosenContact, mListStyle, messages } = useContext(Context)
@@ -14,13 +13,7 @@ export const MessageList = () => {
         <div className={`${mListStyle}, messegeList`} >
             <div >
                 {(choosenContact) && filteredMessages.map(message => (
-                    <IncomingMessage
-                        key={message.id}
-                        message={message}
-                    />
-                ))}
-                {(choosenContact) && filteredMessages.map(message => (
-                    <SendingMessage
+                    <Message
                         key={message.id}
                         message={message}
                     />

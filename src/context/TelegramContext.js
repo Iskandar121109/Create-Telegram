@@ -8,13 +8,16 @@ export const TelegramContext = ({ children }) => {
     const [contacts, setContacts] = useState([]);
 
     useEffect(() => {
-        fetch('http://127.0.0.1:3001/contacts').then(response => response.json())
+        fetch('http://127.0.0.1:3001/users').then(response => response.json())
             .then(contacts => setContacts(contacts))
     }, []);
 
     const [showContact, setShowContact] = useState([]);
+    const [contactIM, setContactIM] = useState([]);
+
     const showHeaderContact = (id) => {
         setShowContact([contacts.find(contact => contact.id === id)])
+        setContactIM([contacts.find(contact => contact.id !== id)])
     }
     const [choosenContact, setChoosenContact] = useState();
 
@@ -122,7 +125,7 @@ export const TelegramContext = ({ children }) => {
 
     const [filterContacts, setFilterContacts] = useState([]);
     useEffect(() => {
-        fetch('http://127.0.0.1:3001/contacts').then(response => response.json())
+        fetch('http://127.0.0.1:3001/users').then(response => response.json())
             .then(contacts => setFilterContacts(contacts))
     }, []);
 
@@ -153,20 +156,28 @@ export const TelegramContext = ({ children }) => {
     const [getContacts, setGetContacts] = useState([]);
 
     useEffect(() => {
-        fetch('http://127.0.0.1:3001/contacts')
+        fetch('http://127.0.0.1:3001/users')
             .then(response => response.json())
             .then(user => setGetContacts(user))
     }, [messages])
+
+    const findContactForFilterMessages = contacts.find(contact => (choosenContact !== undefined)
+        && contact.id !== choosenContact.id
+    );
 
     const [filteredMessages, setFilteredMessages] = useState(messages);
 
     useEffect(() => {
         if (!choosenContact) return;
-        setFilteredMessages(messages.filter((message) => (
-            (message.senderId === 1 && message.receiverId === choosenContact.id) ||
-            (message.senderId === choosenContact.id && message.receiverId === 1)
-        )));
-    }, [messages, choosenContact])
+        // setFilteredMessages(messages.filter((message) => (
+        //     (message.senderId === choosenContact.id && message.receiverId === findContactForFilterMessages.id)
+        //     || (message.senderId === findContactForFilterMessages.id && message.receiverId === choosenContact.id)
+        // )));
+        fetch(`http://127.0.0.1:3001/message-user/${findContactForFilterMessages.id}/${choosenContact.id}`)
+        .then(response => response.json())
+        .then(messages => setFilteredMessages(messages))
+    }, [choosenContact, messages])
+
 
     const [showSearchMesseges, setShowSeachMessages] = useState(false);
     const [showAboutContact, setShowAboutContact] = useState(false);
@@ -196,6 +207,7 @@ export const TelegramContext = ({ children }) => {
         } catch (error) {
             console.error(error);
         }
+        getMessages()
     };
 
     const bgDark = useSelector(state => state.toolkit.bgDark);
@@ -244,7 +256,7 @@ export const TelegramContext = ({ children }) => {
         setNewMessege({
             ...newMessage, id: crypto.randomUUID(),
             text: e.target.value,
-            senderId: 1,
+            senderId: findContactForFilterMessages.id,
             receiverId: choosenContact.id,
             emoji: emojiSelect,
             date: moment().format('LT')
@@ -278,6 +290,7 @@ export const TelegramContext = ({ children }) => {
         // MessageList 
         contactImg, editingMessageId, setEditingMessageId, handleUpdateMessage,
         deleteMessage, bgDark, mListStyle, darkModeStyle,
+        contactIM,
         // MessageInput
         emojiVisible, setEmojiVisible,
         emojiSelect, setEmojiSelect,

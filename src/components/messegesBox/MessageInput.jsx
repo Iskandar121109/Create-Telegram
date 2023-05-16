@@ -12,12 +12,12 @@ export const MessageInput = () => {
   return (
     <div className='h-[10vh]  flex items-center gap-3 px-3 relative bottom-2 w-[100%]'>
       <div className={inputMessageStyle.join(" ")} >
-        <div className={!emojiVisible ? 'hidden' : 'block absolute top-[-450px]'}>
+        {/* <div className={!emojiVisible ? 'hidden' : 'block absolute top-[-450px]'}>
           <EmojiPicker onEmojiClick={(e) => {
             setEmojiSelect(e.emoji)
             setEmojiVisible(!emojiVisible)
           }} />
-        </div>
+        </div> */}
         <CiFaceSmile onClick={() => setEmojiVisible(!emojiVisible)} className='text-3xl text-gray-500 cursor-pointer hover:text-blue-500' />
         <form className='w-[100%] flex' onSubmit={addNewMessage}>
           <input
@@ -32,10 +32,10 @@ export const MessageInput = () => {
               {emojiSelect}
             </span>
           )}
-          <MdAttachFile className='text-3xl text-gray-500 cursor-pointer' />
+          <MdAttachFile className='text-3xl text-gray-500 cursor-pointer hover:text-blue-500' />
         </form>
       </div>
-      <div className={microStyle}>
+      <div className={`${microStyle} hover:bg-blue-500 hover:text-white`}>
         <BiMicrophone className='text-3xl text-gray-400 cursor-pointer  ' />
       </div>
     </div >

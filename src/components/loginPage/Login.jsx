@@ -1,37 +1,19 @@
 import React, { useContext, useState } from 'react'
-import { Context } from '../context/TelegramContext'
+import { Context } from '../../context/TelegramContext';
 
-export const LoginPage = () => {
+export const Login = () => {
     const { setLoggedIn } = useContext(Context);
 
     const [user, setUser] = useState({
         id: '',
         login: '',
-        password: ''
+        password: '',
     })
     const onUserInput = (key) => (e) => {
         setUser(
-            { ...user, senderId: 1, [key]: e.target.value }
+            { ...user, [key]: e.target.value }
         )
     }
-
-    const [registredText, setRegistredText] = useState('Registration');
-    const onRegister = () => {
-        setRegistredText('Registered')
-        fetch('http://localhost:3001/create-user', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ ...user, id: crypto.randomUUID() })
-        })
-        setUser({
-            id: '',
-            login: '',
-            password: ''
-        })
-    };
-
     const [error, setError] = useState('');
 
     const handleLogin = async () => {
@@ -52,8 +34,6 @@ export const LoginPage = () => {
             }
         }
     };
-    const registrationStyle = [' px-6 py-2 hover:bg-green-600 rounded text-white',
-        registredText === 'Registration' ? 'bg-green-500' : 'bg-orange-500'].join(' ');
     return (
         <div className='flex flex-col justify-center items-center gap-3 w-[500px] h-[350px] bg-black/70 rounded-xl' >
             <div className='text-white text-center '>
@@ -69,9 +49,9 @@ export const LoginPage = () => {
              h-[50px] rounded-xl px-3 text-white' type="password" placeholder='password'
                 onChange={onUserInput('password')} value={user.password} />
             <div className='flex gap-3 justify-end w-[70%]'>
-                <button className={registrationStyle} onClick={onRegister}>{registredText}</button>
                 <button className='bg-slate-500 px-6 py-2 hover:bg-slate-600 rounded text-white' onClick={handleLogin}>Login</button>
             </div>
         </div>
+
     )
 }

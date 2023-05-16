@@ -4,18 +4,21 @@ import { TiDeleteOutline } from 'react-icons/ti'
 import { Context } from '../../context/TelegramContext'
 import { EditMessage } from '../EditMessage'
 
-export const SendingMessage = ({ message }) => {
-    const { darkModeStyle, showContact, editingMessageId,
-        handleUpdateMessage, setEditingMessageId, deleteMessage } = useContext(Context)
+export const Message = ({ message }) => {
+    const { darkModeStyle, editingMessageId,
+        handleUpdateMessage, setEditingMessageId, deleteMessage, choosenContact, contacts } = useContext(Context)
+    const reverse = message.receiverId !== choosenContact.id ? 'flex-row-reverse' : ''
+    const incomingMessageStyle = ['w-[100%] flex justify-end items-end mb-2 relative', reverse].join(' ');
     return (
-        <div key={message?.id} className=' w-[100%] flex justify-end items-end mb-2 relative'>
+        <div key={message?.id} className={incomingMessageStyle}>
             <div className={darkModeStyle}>
                 <h1 className='font-bold text-blue-400 flex items-center justify-between gap-3'>
-                    {showContact && showContact.map(contact => (
-                        <div key={contact.id}>
-                            {contact.firstName + ' ' + contact.lastName}
-                        </div>
-                    ))}
+                    {contacts && contacts.map(contact => (contact.id === message.receiverId) &&
+                        (<div className='flex gap-2' key={contact.id}>
+                            <span>{contact.firstName}</span>
+                            <span>{contact.lastName}</span>
+                        </div>)
+                    )}
                     {editingMessageId === message?.id ? (
                         <EditMessage message={message} onUpdate={handleUpdateMessage} />
                     ) : (

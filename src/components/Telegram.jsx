@@ -1,7 +1,7 @@
 import React, { useContext } from 'react'
 import { Context } from '../context/TelegramContext'
 import { ContactList } from './ContactList'
-import { LoginPage } from './LoginPage'
+import { LoginPage } from './loginPage/LoginPage'
 import { MessageBox } from './messegesBox/MessageBox'
 import { ShowBurgerMenu } from './ShowBurgerMenu'
 
